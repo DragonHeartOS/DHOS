@@ -71,7 +71,6 @@ dummy:	.long	0
  	.section .reloc, "a"
 label1:
 	.long	dummy-label1				// Page RVA
-	.long	12					// Block Size (2*4+2*2), must be aligned by 32 Bits
-	.word	(IMAGE_REL_ABSOLUTE<<12) +  0		// reloc for dummy
+ 	.long	10					// Block Size (2*4+2)
 	.word	(IMAGE_REL_ABSOLUTE<<12) +  0		// reloc for dummy
 

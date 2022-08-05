@@ -72,6 +72,5 @@ dummy:	.long	0
 #define IMAGE_REL_ABSOLUTE	0
  	.section .reloc
  	.long	dummy					// Page RVA
-	.long	12					// Block Size (2*4+2*2), must be aligned by 32 Bits
-	.word	(IMAGE_REL_ABSOLUTE<<12) +  0		// reloc for dummy
-	.word	(IMAGE_REL_ABSOLUTE<<12) +  0		// reloc for dummy
+ 	.long	10					// Block Size (2*4+2)
+ 	.word	(IMAGE_REL_ABSOLUTE<<12) +  0		// reloc for dummy

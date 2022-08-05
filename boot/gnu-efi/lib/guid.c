@@ -154,7 +154,7 @@ GuidToString (
 
     for (Index=0; KnownGuids[Index].Guid; Index++) {
         if (CompareGuid(Guid, KnownGuids[Index].Guid) == 0) {
-            UnicodeSPrint (Buffer, 0, KnownGuids[Index].GuidName);
+            SPrint (Buffer, 0, KnownGuids[Index].GuidName);
             return ;
         }
     }
@@ -163,7 +163,7 @@ GuidToString (
     // Else dump it
     //
 
-    UnicodeSPrint (Buffer, 0, L"%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+    SPrint (Buffer, 0, L"%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
         Guid->Data1,
         Guid->Data2,
         Guid->Data3,

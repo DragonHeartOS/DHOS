@@ -34,7 +34,7 @@
 #    SUCH DAMAGE.
 #
 
-VERSION = 3.0.14
+VERSION = 3.0.12
 
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 SRCDIR = $(dir $(MKFILE_PATH))
@@ -43,7 +43,7 @@ VPATH = $(SRCDIR)
 
 include $(SRCDIR)/Make.defaults
 
-SUBDIRS = lib gnuefi inc apps
+SUBDIRS = lib gnuefi inc apps bootloader
 gnuefi: lib
 
 all:	check_gcc $(SUBDIRS)

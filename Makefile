@@ -1,28 +1,16 @@
-BOOTLOADER_FILES = $(shell find boot/src/ -name "*.c")
-CFLAGS = -fpic  						\
-		-ffreestanding 					\
-		-fno-stack-protector 			\
-		-fno-stack-check 				\
-		-fshort-wchar 					\
-		-mno-red-zone 					\
-		-maccumulate-outgoing-args
+iso: img
+	mkdir -p iso
+	cp DHOS.img iso/
+	xorriso -as mkisofs -R -f -e DHOS.img -no-emul-boot -o DHOS.iso iso
 
-LDBOOTFLAGS = -shared \
-			  -Bsymbolic \
-			  -Lboot/gnu-efi/x86_64/gnuefi \
-			  -Tboot/gnu-efi/gnuefi/elf_x86_64_efi.lds
+img:
+	cd boot; make
+	dd if=/dev/zero of=DHOS.img bs=1k count=1440
+	mformat -i DHOS.img -f 1440 ::
+	mmd -i DHOS.img ::/EFI
+	mmd -i DHOS.img ::/EFI/BOOT
+	mcopy -i DHOS.img boot/gnu-efi/x86_64/bootloader/main.efi ::/EFI/BOOT
+	mcopy -i DHOS.img boot/startup.nsh ::
 
-
-CC = x86_64-elf-gcc
-LD = x86_64-elf-ld
-
-main.efi: bootloader
-	$(LD) $(LDBOOTFLAGS) boot/gnu-efi/x86_64/gnuefi/crt0-efi-x86_64.o obj/*.o -o main.so -lgnuefi
-	objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym  -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc --target efi-app-x86_64 --subsystem=10 main.so main.efi
-	rm -rf obj/ *.so
-
-.PHONY: bootloader
-bootloader: $(BOOTLOADER_FILES)
-	mkdir -p obj/
-	cd boot/gnu-efi; make
-	$(CC) -I boot/gnu-efi/inc $(CFLAGS) -c $^ -o obj/$(notdir $^).o
+run:
+	qemu-system-x86_64 -drive file=DHOS.img -m 256M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file=boot/OVMFbin/OVMF_CODE-pure-efi.fd,readonly=on -drive if=pflash,format=raw,unit=1,file=boot/OVMFbin/OVMF_VARS-pure-efi.fd

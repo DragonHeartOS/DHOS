@@ -51,8 +51,7 @@ draw_boxes(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop)
 	UINTN NumPixels;
 	UINT32 *PixelBuffer;
 	UINT32 CopySize, BufferSize;
-#if defined(__x86_64__) || defined(__aarch64__) || \
-    (defined (__riscv) && __riscv_xlen == 64)
+#if defined(__x86_64__) || defined(__aarch64__)
 	UINT64 FrameBufferAddr;
 #elif defined(__i386__) || defined(__arm__)
 	UINT32 FrameBufferAddr;
@@ -71,7 +70,7 @@ draw_boxes(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop)
 		UINTN SizeOfInfo;
 		rc = uefi_call_wrapper(gop->QueryMode, 4, gop, i, &SizeOfInfo,
 					&info);
-		if (rc == EFI_NOT_STARTED) {
+		if (EFI_ERROR(rc) && rc == EFI_NOT_STARTED) {
 			Print(L"gop->QueryMode() returned %r\n", rc);
 			Print(L"Trying to start GOP with SetMode().\n");
 			rc = uefi_call_wrapper(gop->SetMode, 2, gop,
@@ -115,8 +114,7 @@ draw_boxes(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop)
 			Print(L"No linear framebuffer on this device.\n");
 			return;
 		}
-#if defined(__x86_64__) || defined(__aarch64__) || \
-    (defined (__riscv) && __riscv_xlen == 64)
+#if defined(__x86_64__) || defined(__aarch64__)
 		FrameBufferAddr = (UINT64)gop->Mode->FrameBufferBase;
 #elif defined(__i386__) || defined(__arm__)
 		FrameBufferAddr = (UINT32)(UINT64)gop->Mode->FrameBufferBase;

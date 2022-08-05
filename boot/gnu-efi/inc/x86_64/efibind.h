@@ -22,9 +22,7 @@ Revision History
 #pragma pack()
 #endif
 
-#if defined(_MSC_VER)
-    #define HAVE_USE_MS_ABI 1
-#elif defined(GNU_EFI_USE_MS_ABI)
+#if defined(GNU_EFI_USE_MS_ABI)
     #if (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)))||(defined(__clang__) && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 2)))
         #define HAVE_USE_MS_ABI 1
     #else

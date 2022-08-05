@@ -488,7 +488,6 @@ LibInstallProtocolInterfaces (
 
         Index += 1;
     }
-    va_end (args);
 
     //
     // If there was an error, remove all the interfaces that were
@@ -507,7 +506,6 @@ LibInstallProtocolInterfaces (
         }        
 
         *Handle = OldHandle;
-        va_end (args);
     }
 
     //
@@ -554,7 +552,6 @@ LibUninstallProtocolInterfaces (
             DEBUG((D_ERROR, "LibUninstallProtocolInterfaces: failed %g, %r\n", Protocol, Handle));
         }
     }
-    va_end (args);
 }    
 
 
@@ -610,7 +607,6 @@ LibReinstallProtocolInterfaces (
 
         Index += 1;
     }
-    va_end (args);
 
     //
     // If there was an error, undo all the interfaces that were
@@ -628,8 +624,7 @@ LibReinstallProtocolInterfaces (
             uefi_call_wrapper(BS->ReinstallProtocolInterface, 4, Handle, Protocol, NewInterface, OldInterface);
 
             Index -= 1;
-        }
-        va_end (args);
+        }        
     }
 
     //
