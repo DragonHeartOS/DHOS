@@ -1,6 +1,15 @@
 #include <efi.h>
 #include <efilib.h>
+#include <elf.h>
 #include <stddef.h>
+
+#define DRAGONBOOT_VERBOSE
+#define DEFAULT_CONFIG_PATH L"dragonboot.cfg"
+
+
+// Config stuff.
+UINT8 boot_panic = 0;
+
 
 // Memory map structure.
 struct MemoryMap {
@@ -45,6 +54,67 @@ void panic(void) {
     __asm__ __volatile__("cli; hlt");
 }
 
+/*
+ ******************************************
+ *                Storage.                *
+ ******************************************
+ */
+
+EFI_FILE_HANDLE get_volume(EFI_HANDLE imageHandle) {
+    EFI_LOADED_IMAGE* loaded_image = NULL;
+    EFI_GUID lipGUID = EFI_LOADED_IMAGE_PROTOCOL_GUID;
+    EFI_FILE_IO_INTERFACE* IOvolume;
+    EFI_GUID fsguid = EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_GUID;
+    EFI_FILE_HANDLE volume;
+
+    // Get loaded image protocol interface.
+    uefi_call_wrapper(BS->HandleProtocol, 3, imageHandle, &lipGUID, (void**)&loaded_image);
+    
+    // Get volume handle.
+    uefi_call_wrapper(BS->HandleProtocol, 3, loaded_image->DeviceHandle, &fsguid, (VOID*)&IOvolume);
+
+    // Open volume.
+    uefi_call_wrapper(IOvolume->OpenVolume, 2, IOvolume, &volume);
+    return volume;
+}
+
+
+UINT64 get_file_sz(EFI_FILE_HANDLE fhandle) {
+    UINT64 tmp;
+    EFI_FILE_INFO* finfo = LibFileInfo(fhandle);
+    tmp = finfo->FileSize;
+    FreePool(finfo);
+    return tmp;
+}
+
+
+/*
+ ******************************************
+ *               String tools.            *
+ ******************************************
+ */
+
+
+UINT64 strlen(UINT8* str) {
+    UINT64 i = 0;
+    while (str[i++]);
+    return i - 1;
+}
+
+UINT8 strcmp(UINT8* str1, UINT8* str2) {
+    if (strlen(str1) != strlen(str2)) {
+        return 1;
+    }
+
+    for (UINT64 i = 0; i < strlen(str1); ++i) {
+        if (str1[i] != str2[i]) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 
 /*
  ******************************************
@@ -75,10 +145,12 @@ EFI_STATUS init_mmap(struct MemoryMap* out) {
         panic();
     }
 
+#ifdef DRAGONBOOT_VERBOSE
     for (size_t i = 0; i < out->size / out->descriptor_size; ++i) {
         EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((uint64_t)out->map + (i * out->descriptor_size)); 
         Print(L"[phys - virt]: %x - %x (%d KB)\n", desc->PhysicalStart, desc->VirtualStart, desc->NumberOfPages * 4096 / 1024);
     }
+#endif
 
     return s;
 }
