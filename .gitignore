@@ -7,3 +7,7 @@ kernel/limine.h
 *.o
 *.d
 *.sys
+*.a
+*.efi
+toolchain/b*
+toolchain/gcc*

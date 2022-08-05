@@ -3,13 +3,11 @@
 #include <limine.h>
 #include <common/log.h>
 
-static void done(void) {
-    for (;;) {
-        __asm__("hlt");
-    }
-}
-
-void _start(void) {
-    kprintf(KINFO "Hello, World!\n");
-    done();
+void
+_start(void) {
+  kprintf(KINFO "Hello, World!\n");
+  
+  for (;;) {
+    __asm__("hlt");
+  }
 }

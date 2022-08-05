@@ -1,7 +1,6 @@
-#ifndef LOG_H
-#define LOG_H
+#pragma once
 
-#include <stdarg.h>
+#include <kernel.h>
 
 #define KINFO "\e[0;32m"
 #define BLUE "\e[0;34m"
@@ -14,4 +13,3 @@
 void kprintf(char* fmt, ...);
 void clear_term(void);
 
-#endif
