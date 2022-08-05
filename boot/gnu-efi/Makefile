@@ -46,6 +46,7 @@ include $(SRCDIR)/Make.defaults
 SUBDIRS = lib gnuefi inc apps bootloader
 gnuefi: lib
 
+.PHONY: all
 all:	check_gcc $(SUBDIRS)
 
 mkvars:

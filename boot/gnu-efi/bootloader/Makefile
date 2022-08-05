@@ -83,6 +83,7 @@ TARGETS = $(TARGET_APPS) $(TARGET_BSDRIVERS) $(TARGET_RTDRIVERS)
 
 CFLAGS += -Wno-error=unused-parameter -Wno-error=unused-variable
 
+.PHONY: all
 all:	$(TARGETS)
 
 clean:
