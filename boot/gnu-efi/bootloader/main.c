@@ -44,7 +44,6 @@ EFI_STATUS init_mmap(struct MemoryMap* out) {
             FreePool(out->map);
             out->size *= 2;
         } else {
-            Print(L"%d\n", s);
             break;
         }
     }
