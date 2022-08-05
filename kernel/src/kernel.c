@@ -11,6 +11,5 @@ static void done(void) {
 
 void _start(void) {
     kprintf(KINFO "Hello, World!\n");
-
     done();
 }
