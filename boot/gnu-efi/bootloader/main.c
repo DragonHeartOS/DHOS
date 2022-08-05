@@ -13,6 +13,28 @@ struct MemoryMap {
 
 
 /*
+ *  Dragon protocol:
+ *
+ *  Gives information & services to the kernel.
+ *
+ *
+ */
+
+struct DragonProtocol {
+    struct MemoryMap* mmap;
+
+    struct {
+        void* base;
+        UINT64 size;
+        UINT64 horizontal_resolution;
+        UINT64 vertical_resolution;
+        UINT64 pixels_per_scanline;
+        UINT64 pitch;
+    } framebuffer;
+} dproto;
+
+
+/*
  ******************************************
  *                 Panic.                 *
  ******************************************
@@ -61,6 +83,35 @@ EFI_STATUS init_mmap(struct MemoryMap* out) {
     return s;
 }
 
+/*
+ ******************************************
+ *        Graphics Output Protocol        *
+ ******************************************
+ */
+
+
+EFI_STATUS init_gop(void) {
+    EFI_GUID gop_guid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
+    EFI_GRAPHICS_OUTPUT_PROTOCOL* gop;
+    EFI_STATUS s = uefi_call_wrapper(BS->LocateProtocol, 3, &gop_guid, NULL, (void**)&gop);
+
+    // Verify everthing went alright while 
+    // locating GOP.
+    if (EFI_ERROR(s)) {
+        // Sadly, no.
+        Print(L"FATAL: Failed to locate Graphics Output Protocol!\n");
+        panic();
+    }
+
+    // Now we want to fetch information from GOP.
+    dproto.framebuffer.base = (void*)gop->Mode->FrameBufferBase;
+    dproto.framebuffer.size = gop->Mode->FrameBufferSize;
+    dproto.framebuffer.horizontal_resolution = gop->Mode->Info->HorizontalResolution;
+    dproto.framebuffer.vertical_resolution = gop->Mode->Info->VerticalResolution;
+    dproto.framebuffer.pixels_per_scanline = gop->Mode->Info->PixelsPerScanLine;
+    return s;
+}
+
 
 // Entry point.
 EFI_STATUS efi_main(EFI_HANDLE imageHandle, EFI_SYSTEM_TABLE* sysTable) {
@@ -70,6 +121,9 @@ EFI_STATUS efi_main(EFI_HANDLE imageHandle, EFI_SYSTEM_TABLE* sysTable) {
     // Fetch memory map.
     struct MemoryMap mmap;
     init_mmap(&mmap);
+
+    // Init GOP.
+    init_gop();
 
     __asm__ __volatile__("cli; hlt");
     return EFI_SUCCESS;
