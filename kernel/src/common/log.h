@@ -10,6 +10,5 @@
 #define WHITE "\e[0;37m"
 #define BOLD_YELLOW "\e[1;33m"
 
-void kprintf(char* fmt, ...);
+void kprintf(char *fmt, ...);
 void clear_term(void);
-

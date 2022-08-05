@@ -1,0 +1,19 @@
+﻿---
+AllowShortBlocksOnASingleLine: 'false'
+AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AlwaysBreakAfterDefinitionReturnType: All
+AlwaysBreakAfterReturnType: AllDefinitions
+BreakBeforeBraces: WebKit
+ColumnLimit: '80'
+IndentWidth: '2'
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: None
+PointerAlignment: Right
+SortIncludes: 'true'
+SpacesBeforeTrailingComments: '1'
+TabWidth: '2'
+UseTab: Never
+
+...
