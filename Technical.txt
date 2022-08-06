@@ -1,0 +1,5 @@
+Executable file format: ELF
+SMP from the start
+Non-UNIX
+Command line works on Lua, libraries are used to interact with the system. This allows very easy extensibility and powerful scripting. This may be replaced with a custom language.
+Init system reads from a simple INI file

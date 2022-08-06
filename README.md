@@ -1,8 +1,30 @@
+<p align="center">
 <img src=".github/logo.png" height=120>
 <h1 align=center>DragonHeartOS</h1>
-<p align=center>General purpose operating system</p>
-<p align="center">
-<img align=center src="https://img.shields.io/github/license/DragonHeartOS/DHOS2?style=for-the-badge">
+<p align=center>Desktop purpose operating system</p>
 </p>
-<bold><h2>What's this?</h2></bold>
-The operating system is made to give you full control over your hardware from the display, audio or even serial. Currently, the operating system is in a very primitive state.
+
+## What's this?
+
+The operating system is made to give you as much control over your hardware from the display, audio or even serial. Currently, the operating system is in a very primitive state.
+
+## Building
+
+First, you need to compile the toolchain:
+
+```
+$ cd toolchain
+$ ./install.sh
+```
+
+Then, you can use CMake to build and run the operating system:
+
+```
+$ mkdir -p build && cd build 
+$ cmake -GNinja ..
+$ ninja && ninja image && ninja run
+```
+
+## License
+
+This software is distributed under the MIT license. Find more information [here](LICENSE).
