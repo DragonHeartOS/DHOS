@@ -2,21 +2,18 @@
 #include <common/string.h>
 #include <limine.h>
 
+#include <kernel/drivers/comm/serial/serial.h>
+#include <kernel/drivers/video/framebuffer/fb.h>
+#include <kernel/kernel.h>
+
 #include <stdarg.h>
 
-static volatile struct limine_terminal_request term_req = {
-    .id = LIMINE_TERMINAL_REQUEST, .revision = 0};
-
-static struct limine_terminal *terminal = NULL;
-
 static void
-puts(const char *str)
+kprint(char *str)
 {
-  if (terminal == NULL) {
-    terminal = term_req.response->terminals[0];
-  }
-
-  term_req.response->write(terminal, str, strlen(str));
+  // FIXME: Implement colors
+  fb_text_putstr(kernel_fb, str, strlen(str), COLOR_WHITE, COLOR_BLACK);
+  serial_putstr(str);
 }
 
 void
@@ -28,7 +25,7 @@ kprintf(char *fmt, ...)
   char *ptr;
 
   if (memcmp(fmt, KINFO, strlen(KINFO))) {
-    puts(KINFO);
+    kprint(KINFO);
     fmt += strlen(KINFO);
   }
 
@@ -36,13 +33,13 @@ kprintf(char *fmt, ...)
     if (*ptr == '%') {
       ++ptr;
       switch (*ptr) {
-      case 's': puts(va_arg(ap, char *)); break;
-      case 'd': puts(dec2str(va_arg(ap, u64))); break;
-      case 'x': puts(hex2str(va_arg(ap, u64))); break;
+      case 's': kprint(va_arg(ap, char *)); break;
+      case 'd': kprint(dec2str((int)va_arg(ap, u64))); break;
+      case 'x': kprint((char *)hex2str((u32)va_arg(ap, u64))); break;
       }
     } else {
       char terminated[2] = {*ptr, 0};
-      puts(terminated);
+      kprint(terminated);
     }
   }
 }

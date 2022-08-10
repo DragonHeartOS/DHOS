@@ -11,7 +11,7 @@ idt_set_descriptor(u8 vector, void *isr, u8 flags)
 
   vec->isr_low16 = addr & 0xFF;
   vec->isr_mid16 = (addr >> 16) & 0xFF;
-  vec->isr_high32 = addr >> 32;
+  vec->isr_high32 = (u32)(addr >> 32);
   vec->ist = 0;
   vec->zero = 0;
   vec->zero1 = 0;

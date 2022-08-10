@@ -1,5 +1,7 @@
 set(SOURCES
     kernel.c
+    drivers/comm/serial/serial.c
+    drivers/video/framebuffer/fb.c
     interrupts/IDT.c
     common/log.c
     common/string.c)

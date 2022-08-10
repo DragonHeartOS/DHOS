@@ -12,6 +12,8 @@ strlen(char const *str)
 u8
 memcmp(char const *str1, char const *str2, size_t n)
 {
+  (void)n;
+
   while (*str1 && *str2) {
     if (*str1 != *str2) {
       return false;
@@ -39,7 +41,7 @@ dec2str(int number)
   }
 
   while (number > 0) {
-    dec_string[i] = (number % 10) + '0';
+    dec_string[i] = (u8)(number % 10) + '0';
     number /= 10;
     i++;
   }
@@ -56,21 +58,21 @@ dec2str(int number)
     dec_string[i] = temp;
   }
 
-  return dec_string;
+  return (char *)dec_string;
 }
 
 u8 *
 hex2str(u32 hex_num)
 {
   static u8 hex_string[80];
-  u8 *ascii_numbers = "0123456789ABCDEF";
+  u8 *ascii_numbers = (u8 *)"0123456789ABCDEF";
   u8 nibble;
   u8 i = 0, j, temp;
   u8 pad = 0;
 
   // If passed in 0, print a 0
   if (hex_num == 0) {
-    strncpy(hex_string, "0\0", 2);
+    strncpy(hex_string, (u8 *)"0\0", 2);
     i = 1;
   }
 
@@ -134,7 +136,7 @@ memset(void *ptr, u64 data, size_t n)
   char *ptr_ch = ptr;
 
   for (size_t i = 0; i < n; ++i) {
-    ptr_ch[i] = data;
+    ptr_ch[i] = (char)data;
   }
 }
 
@@ -142,8 +144,8 @@ u8
 strcmp(char const *str1, char const *str2)
 {
   u32 str1_len, str2_len;
-  str1_len = strlen(str1);
-  str2_len = strlen(str2);
+  str1_len = (u32)strlen(str1);
+  str2_len = (u32)strlen(str2);
 
   if (str1_len != str2_len) {
     return 1;
