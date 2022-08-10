@@ -1,4 +1,5 @@
 set(SOURCES
+    kutil.c
     kernel.c
     drivers/comm/serial/serial.c
     drivers/video/framebuffer/fb.c

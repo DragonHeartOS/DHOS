@@ -2,6 +2,7 @@
 
 #include <commonlib/math.h>
 #include <kernel/drivers/video/framebuffer/font.h>
+#include <kernel/common/string.h>
 
 font_t *cfont = (font_t *)&DEFAULT_FONT;
 
@@ -71,7 +72,57 @@ void
 fb_text_putstr(framebuffer_t *fb, char *str, u64 len, rgba_t color,
                rgba_t bgcolor)
 {
-  u64 i = 0;
+  u64 i;
   for (i = 0; i < len; i++)
     fb_text_putch(fb, str[i], color, bgcolor);
+}
+
+rgba_t
+select_color_from_id(u8 id)
+{
+  rgba_t ret;
+  switch (id) {
+  case 1: ret = COLOR_RED; break;
+  case 2: ret = COLOR_GREEN; break;
+  case 3: ret = COLOR_YELLOW; break;
+  case 4: ret = COLOR_BLUE; break;
+  case 5: ret = COLOR_MAGENTA; break;
+  case 6: ret = COLOR_CYAN; break;
+  case 7: ret = COLOR_WHITE; break;
+  case 9:
+  case 0:
+  default: ret = COLOR_BLACK; break;
+  }
+  return ret;
+}
+
+rgba_t fg = COLOR_WHITE;
+rgba_t bg = COLOR_BLACK;
+
+void
+fb_text_putstr_ex(framebuffer_t *fb, char const *str)
+{
+  // FIXME: Add '\0' checks
+  while (*str != '\0') {
+    if (*str == '\e') {
+      str++;
+
+      if (*str == '[') {
+	str++;
+
+	switch (*str) {
+	case '3': { str++; fg = select_color_from_id((u8)*str - '0'); break; }
+	case '4': { str++; bg = select_color_from_id((u8)*str - '0'); break; }
+	case '0':
+	  fg = COLOR_WHITE;
+	  bg = COLOR_BLACK;
+	  break;
+	}
+	str+=2;
+      }
+    }
+
+    fb_text_putch(fb, *str, fg, bg);
+    str++;
+  }
 }

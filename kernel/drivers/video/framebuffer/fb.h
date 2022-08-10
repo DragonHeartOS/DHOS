@@ -17,3 +17,4 @@ void fb_text_putch_raw(framebuffer_t *fb, u16 x, u16 y, char ch, rgba_t color,
 void fb_text_putch(framebuffer_t *fb, char ch, rgba_t color, rgba_t bgcolor);
 void fb_text_putstr(framebuffer_t *fb, char *str, u64 len, rgba_t color,
                     rgba_t bgcolor);
+void fb_text_putstr_ex(framebuffer_t *fb, char const *str);

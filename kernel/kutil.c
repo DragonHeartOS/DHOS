@@ -10,8 +10,6 @@ static volatile struct limine_framebuffer_request fb_req = {
 
 static struct limine_framebuffer *fb_limine = NULL;
 
-framebuffer_t kernel_fb;
-
 u8 kernel_initilized = false;
 
 void
