@@ -4,4 +4,4 @@
 
 #include <kernel/drivers/video/framebuffer/fb.h>
 
-extern framebuffer_t *kernel_fb;
+extern framebuffer_t kernel_fb;

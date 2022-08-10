@@ -12,7 +12,7 @@ static void
 kprint(char *str)
 {
   // FIXME: Implement colors
-  fb_text_putstr(kernel_fb, str, strlen(str), COLOR_WHITE, COLOR_BLACK);
+  fb_text_putstr(&kernel_fb, str, strlen(str), COLOR_WHITE, COLOR_BLACK);
   serial_putstr(str);
 }
 
