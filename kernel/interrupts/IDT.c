@@ -1,4 +1,4 @@
-#include <interrupts/IDT.h>
+#include <kernel/interrupts/IDT.h>
 
 static interrupt_gate_descriptor_t idt[256];
 static idt_ptr_t idt_ptr;

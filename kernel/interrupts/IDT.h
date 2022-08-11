@@ -1,6 +1,6 @@
 #pragma once
 
-#include <kernel.h>
+#include <kernel/kernel.h>
 
 typedef struct {
   u16 isr_low16;

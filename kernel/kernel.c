@@ -1,7 +1,7 @@
 #include <kernel/kernel.h>
 
 #include <kernel/kutil.h>
-#include <common/log.h>
+#include <kernel/common/log.h>
 
 framebuffer_t kernel_fb;
 

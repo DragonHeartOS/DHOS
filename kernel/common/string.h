@@ -1,6 +1,6 @@
 #pragma once
 
-#include <kernel.h>
+#include <kernel/kernel.h>
 
 size_t strlen(char const *str);
 u8 memcmp(char const *str1, char const *str2, size_t n);

@@ -2,8 +2,8 @@
 
 #include <kernel/limine.h>
 
-#include <drivers/comm/serial/serial.h>
-#include <drivers/video/framebuffer/fb.h>
+#include <kernel/drivers/comm/serial/serial.h>
+#include <kernel/drivers/video/framebuffer/fb.h>
 
 static volatile struct limine_framebuffer_request fb_req = {
     .id = LIMINE_FRAMEBUFFER_REQUEST, .revision = 0};

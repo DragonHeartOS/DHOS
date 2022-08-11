@@ -1,6 +1,6 @@
 #pragma once
 
-#include <kernel.h>
+#include <kernel/kernel.h>
 
 #define KINFO "\e[32m"
 #define KCLEAR "\e[0m"

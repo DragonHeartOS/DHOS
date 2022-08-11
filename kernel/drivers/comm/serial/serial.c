@@ -1,6 +1,6 @@
-#include <drivers/comm/serial/serial.h>
+#include <kernel/drivers/comm/serial/serial.h>
 
-#include <arch/io.h>
+#include <kernel/arch/io.h>
 
 u8 serial_initialized = 0;
 

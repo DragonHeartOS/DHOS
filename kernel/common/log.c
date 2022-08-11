@@ -1,5 +1,5 @@
-#include <common/log.h>
-#include <common/string.h>
+#include <kernel/common/log.h>
+#include <kernel/common/string.h>
 #include <limine.h>
 
 #include <kernel/drivers/comm/serial/serial.h>
