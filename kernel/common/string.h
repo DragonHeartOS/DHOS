@@ -11,3 +11,5 @@ void memzero(void *ptr, size_t n);
 void memset(void *ptr, u64 data, size_t n);
 u8 strcmp(char const *str1, char const *str2);
 u8 strncmp(char const *str1, char const *str2, size_t n);
+void *memcpy(void *dest, void const *src, size_t n);
+void *memmove(void *dest, void const *src, size_t n);

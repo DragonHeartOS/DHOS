@@ -1,9 +1,11 @@
 cmake_minimum_required (VERSION 3.14)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 
-set(CMAKE_C_COMPILER "${CMAKE_SOURCE_DIR}/toolchain/build/bin/x86_64-elf-gcc" CACHE STRING "C compiler" FORCE)
-set(CMAKE_CXX_COMPILER "${CMAKE_SOURCE_DIR}/toolchain/build/bin/x86_64-elf-g++" CACHE STRING "C++ compiler" FORCE)
 set(CMAKE_LINKER "${CMAKE_SOURCE_DIR}/toolchain/build/bin/x86_64-elf-ld")
+set(CMAKE_C_LINK_EXECUTABLE "<CMAKE_LINKER> <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
+
+set(CMAKE_C_COMPILER "/usr/bin/tcc" CACHE STRING "C compiler" FORCE)
+set(CMAKE_CXX_COMPILER "/usr/bin/tcc" CACHE STRING "C++ compiler" FORCE)
 
 set(CMAKE_C_COMPILER_WORKS 1)
 set(CMAKE_CXX_COMPILER_WORKS 1)

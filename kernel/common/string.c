@@ -171,3 +171,31 @@ strncmp(char const *str1, char const *str2, size_t n)
 
   return 0;
 }
+
+void *
+memcpy(void *dest, const void *src, size_t n)
+{
+  void *odest = dest;
+
+  asm volatile(
+      "rep movsb"
+      : "+D"(dest), "+S"(src), "+c"(n)::"memory");
+  return odest;
+
+  return memmove(dest, src, n);
+}
+
+void *
+memmove(void *dest, void const *src, size_t n)
+{
+  if (dest == src || n == 0) return dest;
+  if (dest-src >= n) return memcpy(dest, src, n);
+
+  u8 *pd = (u8*) dest;
+  u8 *ps = (u8*) src;
+  for (pd += n, ps += n; n--;)
+    *--pd = *--ps;
+
+  return dest;
+}
+

@@ -18,9 +18,9 @@ typedef struct {
 } interrupt_gate_descriptor_t;
 
 typedef struct {
-  u16 limit; // Size.
-  u64 base;  // Base address.
-} __attribute__((packed)) idt_ptr_t;
+  u16 limit PACKED; // Size.
+  u64 base  PACKED;  // Base address.
+} PACKED idt_ptr_t;
 
 void idt_set_descriptor(u8 vector, void *isr, u8 flags);
 void idt_install(void);
