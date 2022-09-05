@@ -15,3 +15,6 @@ typedef struct {
 #define COLOR_BLUE    ((rgba_t){   0,   0, 255, 255 })
 #define COLOR_MAGENTA ((rgba_t){ 255,   0, 255, 255 })
 #define COLOR_CYAN    ((rgba_t){   0, 255, 255, 255 })
+
+#define COLOR_DHRED   ((rgba_t){ 127,   0,   0, 255 })
+

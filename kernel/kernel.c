@@ -10,7 +10,8 @@ _start(void)
 {
   kinit();
   kprint("a\e[32mHello,\e[34m Worl\e[0md!\n");
-  kprintf(KINFO "Hello world!");
+
+  kpanic("Test kernel panic");
 
   for (;;) {
     __asm__("hlt");

@@ -1,5 +1,6 @@
 set(SOURCES
     common/va_list.c
+    kpanic.c
     kutil.c
     kernel.c
     drivers/comm/serial/serial.c

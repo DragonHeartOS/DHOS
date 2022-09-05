@@ -6,7 +6,7 @@
 
 font_t *cfont = (font_t *)&DEFAULT_FONT;
 
-vec2_t cursor = {0, 0};
+vec2_t fb_cursor = {0, 0};
 
 void
 fb_pixel_put(framebuffer_t *fb, u16 x, u16 y, rgba_t color)
@@ -48,22 +48,22 @@ void
 fb_text_putch(framebuffer_t *fb, char ch, rgba_t color, rgba_t bgcolor)
 {
   if (ch == '\n') {
-    cursor.x = 0;
+    fb_cursor.x = 0;
 
-    if (cursor.y + cfont->height > fb->height) {
+    if (fb_cursor.y + cfont->height > fb->height) {
       // fb_scroll_down();
     } else {
-      cursor.y += 1;
+      fb_cursor.y += 1;
     }
   } else {
-    fb_text_putch_raw(fb, (u16)(cursor.x * cfont->width),
-                      (u16)(cursor.y * cfont->height), ch, color, bgcolor);
+    fb_text_putch_raw(fb, (u16)(fb_cursor.x * cfont->width),
+                      (u16)(fb_cursor.y * cfont->height), ch, color, bgcolor);
 
-    cursor.x += 1;
+    fb_cursor.x += 1;
 
-    if (cursor.x > fb->width) {
-      cursor.x = 0;
-      cursor.y += 1;
+    if (fb_cursor.x > fb->width) {
+      fb_cursor.x = 0;
+      fb_cursor.y += 1;
     }
   }
 }
@@ -96,8 +96,8 @@ select_color_from_id(u8 id)
   return ret;
 }
 
-rgba_t fg = COLOR_WHITE;
-rgba_t bg = COLOR_BLACK;
+rgba_t fb_fg = COLOR_WHITE;
+rgba_t fb_bg = COLOR_BLACK;
 
 void
 fb_text_putstr_ex(framebuffer_t *fb, char const *str)
@@ -111,18 +111,19 @@ fb_text_putstr_ex(framebuffer_t *fb, char const *str)
 	str++;
 
 	switch (*str) {
-	case '3': { str++; fg = select_color_from_id((u8)*str - '0'); break; }
-	case '4': { str++; bg = select_color_from_id((u8)*str - '0'); break; }
+	case '3': { str++; fb_fg = select_color_from_id((u8)*str - '0'); break; }
+	case '4': { str++; fb_bg = select_color_from_id((u8)*str - '0'); break; }
 	case '0':
-	  fg = COLOR_WHITE;
-	  bg = COLOR_BLACK;
+	  fb_fg = COLOR_WHITE;
+	  fb_bg = COLOR_BLACK;
 	  break;
 	}
 	str+=2;
       }
     }
 
-    fb_text_putch(fb, *str, fg, bg);
+    fb_text_putch(fb, *str, fb_fg, fb_bg);
     str++;
   }
 }
+

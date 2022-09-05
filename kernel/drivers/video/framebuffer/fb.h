@@ -1,6 +1,7 @@
 #pragma once
 
 #include <commonlib/color.h>
+#include <commonlib/math.h>
 #include <commonlib/types.h>
 
 typedef struct {
@@ -18,3 +19,6 @@ void fb_text_putch(framebuffer_t *fb, char ch, rgba_t color, rgba_t bgcolor);
 void fb_text_putstr(framebuffer_t *fb, char *str, u64 len, rgba_t color,
                     rgba_t bgcolor);
 void fb_text_putstr_ex(framebuffer_t *fb, char const *str);
+
+extern vec2_t fb_cursor;
+extern rgba_t fb_fg, fb_bg;
