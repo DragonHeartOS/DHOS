@@ -1,8 +1,8 @@
 #include <kernel/drivers/video/framebuffer/fb.h>
 
 #include <commonlib/math.h>
-#include <kernel/drivers/video/framebuffer/font.h>
 #include <kernel/common/string.h>
+#include <kernel/drivers/video/framebuffer/font.h>
 
 font_t *cfont = (font_t *)&DEFAULT_FONT;
 
@@ -108,17 +108,25 @@ fb_text_putstr_ex(framebuffer_t *fb, char const *str)
       str++;
 
       if (*str == '[') {
-	str++;
+        str++;
 
-	switch (*str) {
-	case '3': { str++; fb_fg = select_color_from_id((u8)*str - '0'); break; }
-	case '4': { str++; fb_bg = select_color_from_id((u8)*str - '0'); break; }
-	case '0':
-	  fb_fg = COLOR_WHITE;
-	  fb_bg = COLOR_BLACK;
-	  break;
-	}
-	str+=2;
+        switch (*str) {
+        case '3': {
+          str++;
+          fb_fg = select_color_from_id((u8)*str - '0');
+          break;
+        }
+        case '4': {
+          str++;
+          fb_bg = select_color_from_id((u8)*str - '0');
+          break;
+        }
+        case '0':
+          fb_fg = COLOR_WHITE;
+          fb_bg = COLOR_BLACK;
+          break;
+        }
+        str += 2;
       }
     }
 
@@ -126,4 +134,3 @@ fb_text_putstr_ex(framebuffer_t *fb, char const *str)
     str++;
   }
 }
-

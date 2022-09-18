@@ -4,22 +4,23 @@ static interrupt_gate_descriptor_t idt[256];
 static idt_ptr_t idt_ptr;
 
 void
-idt_set_descriptor(u8 vector, void *isr, u8 flags)
+idt_set_descriptor(u8 vector, void *isr, U8 flags)
 {
   u64 addr = (u64)isr;
   interrupt_gate_descriptor_t *vec = &idt[vector];
 
-  vec->isr_low16 = addr & 0xFF;
-  vec->isr_mid16 = (addr >> 16) & 0xFF;
-  vec->isr_high32 = (u32)(addr >> 32);
+  vec->isr_low16 = addr & 0xFFFF;
+  vec->kernel_cs = 0x28;
   vec->ist = 0;
   vec->zero = 0;
   vec->zero1 = 0;
+  vec->attr = flags.hi;
   vec->zero2 = 0;
-  vec->reserved = 0;
+  vec->dpl = 3;
   vec->p = 1;
-  vec->attr = flags;
-  vec->kernel_cs = 0x28;
+  vec->isr_mid16 = (addr >> 16) & 0xFFFF;
+  vec->isr_high32 = (addr >> 32);
+  vec->reserved = 0;
 }
 
 void

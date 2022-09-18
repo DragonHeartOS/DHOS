@@ -1,55 +1,58 @@
 bits 64
-global divide_error
-global debug_exception
-global overflow
-global bound_range_exceeded
-global invalid_opcode
-global no_mathcoprocessor
-global double_fault
-global invalid_tss
-global segment_not_present
-global stack_segment_fault
-global general_protection_fault
-global page_fault
+
+global exception_divide_error
+global exception_debug_exception
+global exception_overflow
+global exception_bound_range_exceeded
+global exception_invalid_opcode
+global exception_no_mathcoprocessor
+global exception_double_fault
+global exception_invalid_tss
+global exception_segment_not_present
+global exception_stack_segment_fault
+global exception_general_protection_fault
+global exception_page_fault
 
 %macro kpanic 1
     cli
+%%asd:
     hlt
+    jmp %%asd
 %endmacro
 
-divide_error:
+exception_divide_error:
     kpanic 0x0
 
-debug_exception:
+exception_debug_exception:
     kpanic 0x1
 
-overflow:
+exception_overflow:
     kpanic 0x4
 
-bound_range_exceeded:
+exception_bound_range_exceeded:
     kpanic 0x5
 
-invalid_opcode:
+exception_invalid_opcode:
     kpanic 0x6
 
-no_mathcoprocessor:
+exception_no_mathcoprocessor:
     kpanic 0x7
 
-double_fault:
+exception_double_fault:
     kpanic 0x8
 
-invalid_tss:
+exception_invalid_tss:
     kpanic 0xA
 
-segment_not_present:
+exception_segment_not_present:
     kpanic 0xB
 
-stack_segment_fault:
+exception_stack_segment_fault:
     kpanic 0xC
 
-general_protection_fault:
+exception_general_protection_fault:
     kpanic 0xD
 
-page_fault:
+exception_page_fault:
     kpanic 0xE
 

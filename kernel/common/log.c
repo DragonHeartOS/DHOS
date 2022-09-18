@@ -37,12 +37,15 @@ kprintf(char *fmt, ...)
       case 'x': kprint((char *)hex2str((u32)va_arg(ap, u64))); break;
       }
     } else {
-      // FIXME: Instead of printing each character individually (which breaks colorization),
-      //        create a string dynamically until formatting happens and print it fully.
+      // FIXME: Instead of printing each character individually (which breaks
+      // colorization),
+      //        create a string dynamically until formatting happens and print
+      //        it fully.
       //
-      //        Colorization breaks because the framebuffer is just a framebuffer. It cannot
-      //        parse text inside it. Shouldn't be needed anyways though since the operating
-      //        system is GUI-based. Oh well... ¯\_(ツ)_/¯
+      //        Colorization breaks because the framebuffer is just a
+      //        framebuffer. It cannot parse text inside it. Shouldn't be needed
+      //        anyways though since the operating system is GUI-based. Oh
+      //        well... ¯\_(ツ)_/¯
       char terminated[2] = {*ptr, 0};
       kprint(terminated);
     }

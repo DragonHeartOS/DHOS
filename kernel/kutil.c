@@ -4,6 +4,7 @@
 
 #include <kernel/drivers/comm/serial/serial.h>
 #include <kernel/drivers/video/framebuffer/fb.h>
+#include <kernel/interrupts/interrupts.h>
 
 static volatile struct limine_framebuffer_request fb_req = {
     .id = LIMINE_FRAMEBUFFER_REQUEST, .revision = 0};
@@ -26,9 +27,10 @@ kinit(void)
                               .bpp = fb_limine->bpp,
                               .data = fb_limine->address};
 
+  __asm__ __volatile__("cli");
+  interrupts_init();
+
   serial_init();
 
   kernel_initilized = true;
 }
-
-

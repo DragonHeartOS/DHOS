@@ -5,7 +5,9 @@ set(SOURCES
     kernel.c
     drivers/comm/serial/serial.c
     drivers/video/framebuffer/fb.c
+    asm/interrupts/exceptions.asm
     interrupts/IDT.c
+    interrupts/interrupts.c
     common/log.c
     common/string.c)
 

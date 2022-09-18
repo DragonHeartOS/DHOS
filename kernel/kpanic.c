@@ -1,7 +1,7 @@
 #include <kernel/kpanic.h>
 
-#include <kernel/kernel.h>
 #include <kernel/common/log.h>
+#include <kernel/kernel.h>
 
 #include <commonlib/color.h>
 
@@ -20,4 +20,3 @@ kpanic(char *const msg)
   for (;;)
     __asm__("hlt");
 }
-

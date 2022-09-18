@@ -1,8 +1,6 @@
 // TINYCC  lib/va_list.c, included here to make compilation work.
 
-enum __va_arg_type {
-  __va_gen_reg, __va_float_reg, __va_stack
-};
+enum __va_arg_type { __va_gen_reg, __va_float_reg, __va_stack };
 
 extern void *memcpy(void *dest, const void *src, unsigned long n);
 
@@ -26,7 +24,7 @@ __va_arg(__builtin_va_list ap, int arg_type, int size, int align)
         return ap->reg_save_area + ap->fp_offset - 16;
       if (ap->fp_offset < 128 + 48) {
         memcpy(ap->reg_save_area + ap->fp_offset - 8,
-             ap->reg_save_area + ap->fp_offset, 8);
+               ap->reg_save_area + ap->fp_offset, 8);
         ap->fp_offset += 16;
         return ap->reg_save_area + ap->fp_offset - 32;
       }
@@ -36,10 +34,9 @@ __va_arg(__builtin_va_list ap, int arg_type, int size, int align)
   case __va_stack:
   use_overflow_area:
     ap->overflow_arg_area += size;
-    ap->overflow_arg_area = (char*)((long long)(ap->overflow_arg_area + align - 1) & -align);
+    ap->overflow_arg_area =
+        (char *)((long long)(ap->overflow_arg_area + align - 1) & -align);
     return ap->overflow_arg_area - size;
-  default:
-    return 0;
+  default: return 0;
   }
 }
-

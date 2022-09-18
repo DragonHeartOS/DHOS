@@ -17,10 +17,10 @@ typedef struct {
   u32 reserved;
 } interrupt_gate_descriptor_t;
 
-typedef struct {
+typedef struct PACKED {
   u16 limit PACKED; // Size.
-  u64 base  PACKED;  // Base address.
-} PACKED idt_ptr_t;
+  u64 base PACKED;  // Base address.
+} idt_ptr_t;
 
-void idt_set_descriptor(u8 vector, void *isr, u8 flags);
+void idt_set_descriptor(u8 vector, void *isr, U8 flags);
 void idt_install(void);
