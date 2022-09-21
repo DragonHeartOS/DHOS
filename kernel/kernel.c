@@ -11,7 +11,7 @@ _start(void)
   kinit();
   kprint("a\e[32mHello,\e[34m Worl\e[0md!\n");
 
-  kprintf("%d", 10 / 0);
+  //kprintf("%d", 10 / 0);
 
   for (;;) {
     __asm__("hlt");
