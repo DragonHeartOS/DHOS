@@ -28,5 +28,5 @@ idt_install(void)
 {
   idt_ptr.limit = sizeof(interrupt_gate_descriptor_t) * 256 - 1;
   idt_ptr.base = (u64)&idt;
-  __asm__ __volatile__("lidt %0" ::"m"(idt_ptr));
+  ASMV("lidt %0" ::"m"(idt_ptr));
 }
