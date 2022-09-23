@@ -17,6 +17,7 @@ kpanic(char *const msg)
   kprint(msg);
   kprint("\n");
 
+  ASMV("cli");
   for (;;)
     __asm__("hlt");
 }
