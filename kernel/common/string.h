@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STRING_H
+#define STRING_H
 
 #include <kernel/kernel.h>
 
@@ -13,3 +14,5 @@ u8 strcmp(char const *str1, char const *str2);
 u8 strncmp(char const *str1, char const *str2, size_t n);
 void *memcpy(void *dest, void const *src, size_t n);
 void *memmove(void *dest, void const *src, size_t n);
+
+#endif // STRING_H

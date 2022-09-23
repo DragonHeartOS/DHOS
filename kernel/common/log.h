@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_LOG_H
+#define KERNEL_LOG_H
 
 #include <kernel/kernel.h>
 
@@ -8,3 +9,5 @@
 void kprint(char *str);
 void kprintf(char *fmt, ...);
 void clear_term(void);
+
+#endif // KERNEL_LOG_H

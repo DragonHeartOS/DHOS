@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_FB_H
+#define KERNEL_FB_H
 
 #include <commonlib/color.h>
 #include <commonlib/math.h>
@@ -22,3 +23,5 @@ void fb_text_putstr_ex(framebuffer_t *fb, char const *str);
 
 extern vec2_t fb_cursor;
 extern rgba_t fb_fg, fb_bg;
+
+#endif // KERNEL_FB_H

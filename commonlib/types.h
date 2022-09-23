@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TYPES_H
+#define TYPES_H
 
 #include <stddef.h>
 #include <stdint.h>
@@ -17,3 +18,5 @@ typedef unsigned int uint;
 
 #define false 0
 #define true 1
+
+#endif // TYPES_H

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_SERIAL_H
+#define KERNEL_SERIAL_H
 
 #define COM1 (0x3F8)
 #define COM2 (0x2F8)
@@ -14,3 +15,5 @@
 int serial_init();
 void serial_putch(char ch);
 void serial_putstr(char *str);
+
+#endif

@@ -1,5 +1,7 @@
 #include <kernel/kutil.h>
 
+#include <kernel/kernel.h>
+
 #include <kernel/limine.h>
 
 #include <kernel/drivers/comm/serial/serial.h>

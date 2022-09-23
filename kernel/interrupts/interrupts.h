@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_INTERRUPTS_H
+#define KERNEL_INTERRUPTS_H
 
 void exception_divide_error(void);
 void exception_debug_exception(void);
@@ -15,3 +16,5 @@ void exception_page_fault(void);
 
 void interrupts_init(void);
 void irq_init(void);
+
+#endif // KERNEL_INTERRUPTS_H

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_IDT_H
+#define KERNEL_IDT_H
 
 #include <kernel/kernel.h>
 
@@ -26,3 +27,5 @@ typedef struct PACKED {
 
 void idt_set_descriptor(u8 vector, void *isr, u8 flags);
 void idt_install(void);
+
+#endif // KERNEL_IDT_H

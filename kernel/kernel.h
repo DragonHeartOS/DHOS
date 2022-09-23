@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_H
+#define KERNEL_H
 
 #include <commonlib/types.h>
 
@@ -7,3 +8,5 @@
 #define PACKED __attribute__((packed))
 
 extern framebuffer_t kernel_fb;
+
+#endif // KERNEL_H

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_IO_H
+#define KERNEL_IO_H
 
 #include <commonlib/types.h>
 
@@ -24,3 +25,5 @@ wait(void)
                "1:jmp 2f\n\t"
                "2:");
 }
+
+#endif // KERNEL_IO_H

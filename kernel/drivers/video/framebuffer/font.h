@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KERNEL_FONT_H
+#define KERNEL_FONT_H
 
 #include <commonlib/types.h>
 
@@ -107,3 +108,5 @@ typedef struct {
 
 font_t const DEFAULT_FONT = {
     .width = 9, .height = 16, .data = (u16 *)DEFAULT_FONT_DATA};
+
+#endif // KERNEL_FONT_H
