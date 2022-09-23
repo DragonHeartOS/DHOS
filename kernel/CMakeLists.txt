@@ -6,6 +6,7 @@ set(SOURCES
     drivers/comm/serial/serial.c
     drivers/video/framebuffer/fb.c
     asm/interrupts/exceptions.asm
+    memory/physicalmm.c
     interrupts/IDT.c
     interrupts/interrupts.c
     common/log.c
