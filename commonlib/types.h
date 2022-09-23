@@ -19,4 +19,6 @@ typedef unsigned int uint;
 #define false 0
 #define true 1
 
+#define ASMV(a) __asm__ __volatile__(a)
+
 #endif // TYPES_H
