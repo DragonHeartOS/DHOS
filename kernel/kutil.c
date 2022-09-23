@@ -1,12 +1,13 @@
 #include <kernel/kutil.h>
 
-#include <kernel/kernel.h>
-
-#include <kernel/limine.h>
-
+#include <kernel/common/log.h>
 #include <kernel/drivers/comm/serial/serial.h>
 #include <kernel/drivers/video/framebuffer/fb.h>
 #include <kernel/interrupts/interrupts.h>
+#include <kernel/kernel.h>
+#include <kernel/memory/physicalmm.h>
+
+#include <kernel/limine.h>
 
 static volatile struct limine_framebuffer_request fb_req = {
     .id = LIMINE_FRAMEBUFFER_REQUEST, .revision = 0};
@@ -31,8 +32,14 @@ kinit(void)
 
   __asm__ __volatile__("cli");
   interrupts_init();
+  kprint("Interrupts loaded\n");
 
   serial_init();
+  kprint("Serial initialized\n");
 
+  physicalmm_init();
+  kprint("Physical memory manager initialized\n");
+
+  kprint("Kernel initialization complete\n");
   kernel_initilized = true;
 }
