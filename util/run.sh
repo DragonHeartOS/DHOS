@@ -25,5 +25,6 @@ if [ "$SYSTEM" = 'QEMU' ] ; then
         exit 1
     fi
 
+    echo $QEMU_BIN $QEMU_ARGS
     $QEMU_BIN $QEMU_ARGS
 fi
