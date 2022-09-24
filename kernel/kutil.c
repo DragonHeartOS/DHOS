@@ -30,7 +30,7 @@ kinit(void)
                               .bpp = fb_limine->bpp,
                               .data = fb_limine->address};
 
-  __asm__ __volatile__("cli");
+  ASMV("cli");
   interrupts_init();
   kprint("Interrupts loaded\n");
 
@@ -39,6 +39,8 @@ kinit(void)
 
   physicalmm_init();
   kprint("Physical memory manager initialized\n");
+
+  physicalmm_alloc();
 
   kprint("Kernel initialization complete\n");
   kernel_initilized = true;
