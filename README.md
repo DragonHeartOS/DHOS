@@ -1,7 +1,7 @@
 <p align="center">
 <img src=".github/logo.png" height=120>
 <h1 align=center>DragonHeartOS</h1>
-<p align=center>Desktop purpose operating system</p>
+<p align=center>Blazingly fast desktop general purpose operating system</p>
 </p>
 
 ## What's this?
