@@ -11,4 +11,5 @@ kernel/limine.h
 *.efi
 toolchain/b*
 toolchain/gcc*
-build
+[Bb]uild
+.direnv
